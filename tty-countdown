@@ -3,6 +3,7 @@
 import subprocess
 import argparse
 import time
+import os
 
 #Default terminal width just in case
 DEFAULT_WIDTH = 90
@@ -70,7 +71,8 @@ def getTermWidth():
         return DEFAULT_WIDTH
 
 #Load font file
-with open("font.txt", "r") as f:
+fontFile = os.path.join(os.path.dirname(__file__), 'font.txt')
+with open(fontFile, "r") as f:
     font = f.read().split("\n<---->\n")
     font = [ symbol.split("\n") for symbol in font ]
 
