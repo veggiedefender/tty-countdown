@@ -2,7 +2,8 @@
 
 ![screenshot](http://i.imgur.com/B2oGKeL.png)
 
-A countdown timer that will live forever in the shadow of [tty-clock](https://github.com/xorg62/tty-clock)
+A countdown timer that will live forever in the shadow of 
+[tty-clock](https://github.com/xorg62/tty-clock).
 
 
 ##Usage
