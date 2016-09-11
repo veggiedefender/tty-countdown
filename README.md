@@ -6,7 +6,7 @@ A countdown timer that will live forever in the shadow of [tty-clock](https://gi
 
 
 ##Usage
-    usage: tty-countdown [-h] [-m MINUTES] [-s SECONDS] [-L]
+    usage: tty-countdown [-h] [-m MINUTES] [-s SECONDS] [-f FONT] [-L]
     
     Fancy countdown script
     
@@ -16,4 +16,6 @@ A countdown timer that will live forever in the shadow of [tty-clock](https://gi
                             Number of minutes
       -s SECONDS, --seconds SECONDS
                             Number of seconds
+      -f FONT, --font FONT  Custom font file
       -L, --left            Align left (faster)
+    

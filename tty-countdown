@@ -4,9 +4,8 @@ import subprocess
 import argparse
 import time
 
-#Some constants
+#Default width just in case
 DEFAULT_WIDTH = 90
-FONT_FILE = "/usr/share/tty-countdown/font.txt"
 
 #Arguments
 parser = argparse.ArgumentParser(description = "Fancy countdown script")
@@ -17,6 +16,9 @@ parser.add_argument("-m", "--minutes", action="store",
 parser.add_argument("-s", "--seconds", action="store",
                     type=int, help="Number of seconds",
                     default=0)
+parser.add_argument("-f", "--font", action="store",
+                    help="Custom font file",
+                    default="/usr/share/tty-countdown/font.txt")
 parser.add_argument("-L", "--left", action="store_true",
                     help="Align left (faster)")
 
@@ -25,6 +27,7 @@ args = parser.parse_args()
 centered = not args.left
 seconds = args.seconds
 minutes = args.minutes
+fontFile = args.font
 
 seconds = minutes * 60 + seconds
 
@@ -71,7 +74,7 @@ def getTermWidth():
         return DEFAULT_WIDTH
 
 #Load font file
-with open(FONT_FILE, "r") as f:
+with open(fontFile, "r") as f:
     font = f.read().split("\n<---->\n")
     font = [ symbol.split("\n") for symbol in font ]
 
