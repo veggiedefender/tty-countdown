@@ -28,7 +28,7 @@ A countdown timer that will live forever in the shadow of
 ###Other
     $ git clone https://github.com/veggiedefender/tty-countdown && cd tty-countdown
     $ sudo cp tty-countdown /usr/bin/ && chmod +x /usr/bin/tty-countdown
-    $ sudo mkdir -p /usr/share/tty-countdown/ && cp font.txt /usr/share/tty-countdown/
+    $ sudo mkdir /usr/share/tty-countdown/ && cp font.txt /usr/share/tty-countdown/
 
 ###Windows
 * Does this even work on Windows?
