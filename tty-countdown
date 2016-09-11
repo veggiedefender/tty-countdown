@@ -4,8 +4,9 @@ import subprocess
 import argparse
 import time
 
-#Default width just in case
-DEFAULT_WIDTH = 90
+#Default dimensions just in case
+DEFAULT_HEIGHT = 24
+DEFAULT_WIDTH = 80
 
 #Arguments
 parser = argparse.ArgumentParser(description = "Fancy countdown script")
@@ -19,8 +20,8 @@ parser.add_argument("-s", "--seconds", action="store",
 parser.add_argument("-f", "--font", action="store",
                     help="Custom font file",
                     default="/usr/share/tty-countdown/font.txt")
-parser.add_argument("-L", "--left", action="store_true",
-                    help="Align left (faster)")
+parser.add_argument("-n", "--nocenter", action="store_true",
+                    help="Do not center timer (more efficient)")
 
 args = parser.parse_args()
 
@@ -51,27 +52,36 @@ def asciiFormat(string, font):
         frame += "\n"
     return frame[:-1]
 
-#Pad left and right side with spaces to center
-def centered(frame, termWidth):
+#Pad with spaces and newlines to center
+def center(frame, termDimensions):
     if centered:
+        termHeight = termDimensions[0]
+        termWidth = termDimensions[1]
         frame = frame.split("\n")
         frameWidth = max(map(len, frame))
-        pad = " " * int((termWidth - frameWidth)/2)
+        frameHeight = len(frame)
+        #pad horizontally
+        pad = " " * int((termWidth - frameWidth) / 2)
         frame = "\n".join([ (pad + line + pad) for line in frame ])
+
+        #pad vertically
+        pad = "\n" * int((termHeight - frameHeight) / 2)
+        frame = pad + frame + pad
     clear()
     return frame
 
 #Clear screen
 def clear():
-    #no idea how this works
+    #no idea how this works but it do
     print("\033c")
 
-def getTermWidth():
+#Terminal dimensions [height, width]
+def getTermDimensions():
     try:
-        columns = subprocess.check_output(['stty', 'size']).split()[1]
-        return int(columns)
+        dimensions = subprocess.check_output(['stty', 'size']).split()
+        return list(map(int, dimensions))
     except subprocess.CalledProcessError:
-        return DEFAULT_WIDTH
+        return [DEFAULT_HEIGHT, DEFAULT_WIDTH]
 
 #Load font file
 with open(fontFile, "r") as f:
@@ -81,7 +91,6 @@ with open(fontFile, "r") as f:
 #Countdown
 while seconds >= 0:
     t = "%s:%02d" % divmod(seconds, 60)
-    print(centered(asciiFormat(t, font), getTermWidth()), end="")
-
+    print(center(asciiFormat(t, font), getTermDimensions()), end="")
     seconds -= 1
     time.sleep(1)
