@@ -1,6 +1,6 @@
 #TTY-Countdown
 
-![screenshot](http://i.imgur.com/B2oGKeL.png)
+![screenshot](http://i.imgur.com/lnRXPyZ.png)
 
 A countdown timer that will live forever in the shadow of 
 [tty-clock](https://github.com/xorg62/tty-clock).
