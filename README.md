@@ -1,4 +1,4 @@
-#TTY-Countdown
+# TTY-Countdown
 
 ![screenshot](http://i.imgur.com/lnRXPyZ.png)
 
@@ -6,7 +6,7 @@ A countdown timer that will live forever in the shadow of
 [tty-clock](https://github.com/xorg62/tty-clock).
 
 
-##Usage
+## Usage
     usage: tty-countdown [-h] [-m MINUTES] [-s SECONDS] [-f FONT] [-n]
     
     Fancy countdown script
@@ -20,15 +20,15 @@ A countdown timer that will live forever in the shadow of
       -f FONT, --font FONT  Custom font file
       -n, --nocenter        Do not center timer (more efficient)
     
-##Installation
-###Arch Linux
+## Installation
+### Arch Linux
 * [Install from the AUR](https://aur.archlinux.org/packages/tty-countdown-git)
 * `pacaur -S tty-countdown-git`
 
-###Other
+### Other
     $ git clone https://github.com/veggiedefender/tty-countdown && cd tty-countdown
     $ sudo cp tty-countdown /usr/bin/ && chmod +x /usr/bin/tty-countdown
     $ sudo mkdir /usr/share/tty-countdown/ && cp font.txt /usr/share/tty-countdown/
 
-###Windows
+### Windows
 * Does this even work on Windows?
