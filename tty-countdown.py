@@ -3,6 +3,9 @@
 import subprocess
 import argparse
 import time
+import dateutil.parser as dateParser
+import datetime
+import cursor
 
 # Default dimensions just in case
 DEFAULT_HEIGHT = 24
@@ -11,6 +14,7 @@ DEFAULT_WIDTH = 80
 # Arguments
 parser = argparse.ArgumentParser(description="Fancy countdown script")
 
+parser.add_argument("-d", "--date", action="store", help="Date to countdown to", default="")
 parser.add_argument("-m", "--minutes", action="store",
                     type=int, help="Number of minutes",
                     default=0)
@@ -29,6 +33,7 @@ centered = not args.nocenter
 seconds = args.seconds
 minutes = args.minutes
 fontFile = args.font
+date = args.date
 
 seconds = minutes * 60 + seconds
 
@@ -75,6 +80,7 @@ def center(frame, termDimensions):
 def clear():
     # no idea how this works but it does
     print("\033c")
+    cursor.hide()
 
 
 # Terminal dimensions [height, width]
@@ -85,6 +91,9 @@ def getTermDimensions():
     except subprocess.CalledProcessError:
         return [DEFAULT_HEIGHT, DEFAULT_WIDTH]
 
+def getTime(seconds):
+    d = datetime.datetime(1,1,1) + datetime.timedelta(seconds=seconds)
+    return "%d:%d:%d:%d" % (d.day-1, d.hour, d.minute, d.second)
 
 if __name__ == '__main__':
     # Load font file
@@ -92,9 +101,18 @@ if __name__ == '__main__':
         font = f.read().split("\n<---->\n")
         font = [symbol.split("\n") for symbol in font]
 
+    if date != "":
+        parsedDate = dateParser.parse(date, dayfirst=True)
+        now = datetime.datetime.now()
+        timeDiff = parsedDate - now
+        seconds = round(timeDiff.total_seconds())
+        if seconds < 0:
+            seconds = 0
+
     # Countdown
     while seconds >= 0:
-        t = "%s:%02d" % divmod(seconds, 60)
-        print(center(asciiFormat(t, font), getTermDimensions()), end="")
+        print(center(asciiFormat(getTime(seconds), font), getTermDimensions()), end="")
         seconds -= 1
         time.sleep(1)
+        
+    cursor.show()
