@@ -7,12 +7,14 @@ A countdown timer that will live forever in the shadow of
 
 
 ## Usage
-    usage: tty-countdown [-h] [-m MINUTES] [-s SECONDS] [-f FONT] [-n]
-    
+
+    usage: tty-countdown [-h] [-d DATE] [-m MINUTES] [-s SECONDS] [-f FONT] [-n]
+
     Fancy countdown script
-    
-    optional arguments:
+
+    options:
       -h, --help            show this help message and exit
+      -d DATE, --date DATE  Date to countdown to
       -m MINUTES, --minutes MINUTES
                             Number of minutes
       -s SECONDS, --seconds SECONDS
