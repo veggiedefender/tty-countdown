@@ -94,12 +94,12 @@ def getTermDimensions():
 def getTime(seconds):
     d = datetime.datetime(1,1,1) + datetime.timedelta(seconds=seconds)
     if d.day > 1:
-        return "%d:%d:%d:%d" % (d.day-1, d.hour, d.minute, d.second)
+        return "%02d:%02d:%02d:%02d" % (d.day-1, d.hour, d.minute, d.second)
     elif d.hour > 0:
-        return "%d:%d:%d" % (d.hour, d.minute, d.second)
+        return "%02d:%02d:%02d" % (d.hour, d.minute, d.second)
     elif d.minute > 0:
-        return "%d:%d" % (d.minute, d.second)
-    return "%d" % d.second
+        return "%02d:%02d" % (d.minute, d.second)
+    return "%02d" % d.second
 
 if __name__ == '__main__':
     # Load font file
