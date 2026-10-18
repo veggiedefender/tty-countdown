@@ -74,7 +74,8 @@ def center(frame, termDimensions):
 # Clear screen
 def clear():
     # no idea how this works but it does
-    print("\033c")
+    #print("\033c")
+    print("\033[H\033[J", end="")
 
 
 # Terminal dimensions [height, width]
@@ -92,9 +93,18 @@ if __name__ == '__main__':
         font = f.read().split("\n<---->\n")
         font = [symbol.split("\n") for symbol in font]
 
+
+    # Hide cursor while countdown is running
+    print("\033[?25l", end="", flush=True)
+
+
     # Countdown
-    while seconds >= 0:
-        t = "%s:%02d" % divmod(seconds, 60)
-        print(center(asciiFormat(t, font), getTermDimensions()), end="")
-        seconds -= 1
-        time.sleep(1)
+    try:
+        while seconds >= 0:
+           t = "%s:%02d" % divmod(seconds, 60)
+           print(center(asciiFormat(t, font), getTermDimensions()), end="", flush=True)
+           seconds -= 1
+           time.sleep(1)
+    finally:
+        # Restore cursor and terminal position on exit.
+        print("\033[?25h\033[0m", end="", flush=True)
